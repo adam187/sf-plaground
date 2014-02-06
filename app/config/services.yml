@@ -1,0 +1,4 @@
+
+services:
+    em: @doctrine.orm.entity_manager
+    om: @doctrine.orm.entity_manager
