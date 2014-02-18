@@ -36,6 +36,34 @@ class DemoController extends Controller
     }
 
     /**
+     * @Route("/trans-test", name="_trans_test")
+     * @Template()
+     */
+    public function transAction()
+    {
+        $em = $this->get('doctrine')->getManager();
+        $repo = $em->getRepository('Entity:Test');
+        // $entity = $repo->find(1);
+        // $list = $repo->findAll();
+        $list = $repo->findAllWithTrans();
+
+        // $entity->setName('name pl');
+        // $entity->setTranslatableLocale('pl');
+        // $em->persist($entity);
+        // $em->flush();
+
+        // $entity->setName('name en');
+        // $entity->setTranslatableLocale('en');
+        // $em->persist($entity);
+        // $em->flush();
+
+        return array(
+            // 'entity' => $entity,
+            'list'   => $list,
+        );
+    }
+
+    /**
      * @Route("/hello/{name}", name="_demo_hello")
      * @Template()
      */

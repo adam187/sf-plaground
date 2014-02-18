@@ -2,15 +2,17 @@
 
 namespace Acme\ControlBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Test
  *
  * @ORM\Table(name="test")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Acme\ControlBundle\Repository\TestRepository")
  */
-class Test
+class Test implements Translatable
 {
     /**
      * @var integer
@@ -24,10 +26,17 @@ class Test
     /**
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      * Get id
@@ -60,5 +69,10 @@ class Test
     public function getName()
     {
         return $this->name;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
